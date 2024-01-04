@@ -9,7 +9,7 @@ typedef pair<int,int> pii;
 int n,res;
 int dx[4]={1,0,-1,0};
 int dy[4]={0,-1,0,1};
-bool visited[102][102];
+bool visited[101][101];
 
 int main(){
     ios_base::sync_with_stdio(false);
@@ -33,12 +33,9 @@ int main(){
             }
         }
 
-
         for(auto& p:points){
-            if(p.first>100 || p.first<0 || p.second>100 || p.second<0) continue;
             visited[p.second][p.first]=true;
         }
-
     }
 
     for (int i = 0; i < 100; ++i) {
@@ -46,5 +43,6 @@ int main(){
             if(visited[i][j] && visited[i+1][j] && visited[i][j+1] && visited[i+1][j+1]) res++;
         }
     }
+
     cout<<res<<'\n';
 }

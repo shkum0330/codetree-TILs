@@ -65,11 +65,12 @@ void dfs(int idx){
                 dir[0]=v[i].second;
                 for (int j = 1; j < 3; ++j) {
                     dir[j]=dir[j-1]+1;
-                    if(dir[j]>4) dir[j] -= 4;
+                    if(dir[j]>=4) dir[j] -= 4;
                 }
                 for (int j = 0; j < 3; ++j) {
                     move_piece(y,x,dir[j]);
                 }
+                cout<<'\n';
             }
             if(mmap[y][x]==5){
                 for (int j = 0; j < 4; ++j) {

@@ -70,7 +70,6 @@ void dfs(int idx){
                 for (int j = 0; j < 3; ++j) {
                     move_piece(y,x,dir[j]);
                 }
-                cout<<'\n';
             }
             if(mmap[y][x]==5){
                 for (int j = 0; j < 4; ++j) {

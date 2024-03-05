@@ -4,8 +4,7 @@ using namespace std;
 #define INF 1000000007
 typedef pair<int,int> pii;
 
-int n,m;
-int res=INF;
+int n,m,res;
 int mmap[9][9];
 bool visited[9][9];
 vector<pii> piece;
@@ -127,12 +126,13 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     cin>>n>>m;
+    res=n*m;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
             cin>>mmap[i][j];
             if(mmap[i][j]>=1 && mmap[i][j]<=5) piece.push_back({i,j});
         }
     }
-    dfs(0);
+    if(piece.size()>0)dfs(0);
     cout<<res<<'\n';
 }

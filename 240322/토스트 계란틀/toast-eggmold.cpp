@@ -13,11 +13,11 @@ void bfs(int y,int x){
     int sum=0;
     int cnt=0;
     queue<pair<int,int>> q;
+    visited[y][x]=true;
     q.push({y,x});
 
     while(!q.empty()){
         cnt++;
-        visited[y][x]=true;
         int y=q.front().first;
         int x=q.front().second;
         sum += mmap[y][x];
@@ -77,5 +77,4 @@ int main() {
     }
 
     cout<<res<<'\n';
-    return 0;
 }

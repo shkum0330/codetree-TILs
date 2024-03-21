@@ -13,6 +13,7 @@ void bfs(int y,int x){
     int sum=0;
     int cnt=0;
     queue<pair<int,int>> q;
+    vector<pair<int,int>> v;
     visited[y][x]=true;
     q.push({y,x});
 
@@ -20,6 +21,7 @@ void bfs(int y,int x){
         cnt++;
         int y=q.front().first;
         int x=q.front().second;
+        v.push_back({y,x});
         sum += mmap[y][x];
         q.pop();
         
@@ -36,10 +38,8 @@ void bfs(int y,int x){
     }
     if(cnt>1){
         int num= sum/cnt;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(visited[i][j]) mmap[i][j]=num;
-            }
+        for(auto& k:v){
+            mmap[k.first][k.second]=num;
         }
     }
 

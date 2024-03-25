@@ -6,6 +6,7 @@ int n,m,k,res;
 
 struct Virus{
     int y,x,age;
+    bool is_dead=false;
 };
 
 bool compare(const Virus& a, const Virus& b){
@@ -20,8 +21,7 @@ vector<Virus> v;
 
 
 int main() {
-    // 여기에 코드를 작성해주세요.
-    
+
     cin>>n>>m>>k;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
@@ -46,11 +46,11 @@ int main() {
             int x=v[i].x;
             int age=v[i].age;
 
-            if(age==0) continue;
+            if(v[i].is_dead) continue;
 
             if(mmap[y][x]<age){
                 d.push_back({y,x,age});
-                v[i].age=0;
+                v[i].is_dead=true;
                 continue;
             }
             mmap[y][x] -= age;
@@ -65,7 +65,7 @@ int main() {
 
         // 바이러스 번식
         for(auto &l:v){
-            if(l.age==0 || l.age%5 != 0) continue;
+            if(l.is_dead || l.age%5 != 0) continue;
             for(int i=0;i<8;i++){
                 int ny=l.y+dy[i];
                 int nx=l.x+dx[i];
@@ -83,7 +83,7 @@ int main() {
     }
 
     for(auto& k:v){
-        if(k.age==0) continue;
+        if(k.is_dead) continue;
         res++;
     }
 

@@ -59,16 +59,16 @@ int main() {
         }
 
         // 죽은 바이러스 양분으로 변환
-        for(auto &k:d){
-            mmap[k.y][k.x] += k.age/2;
+        for(auto &i:d){
+            mmap[i.y][i.x] += i.age/2;
         }
 
         // 바이러스 번식
-        for(auto &k:v){
-            if(k.age==0 || k.age%5 != 0) continue;
+        for(auto &l:v){
+            if(l.age==0 || l.age%5 != 0) continue;
             for(int i=0;i<8;i++){
-                int ny=k.y+dy[i];
-                int nx=k.x+dx[i];
+                int ny=l.y+dy[i];
+                int nx=l.x+dx[i];
                 if(ny>n || ny<=0 || nx>n || nx<=0) continue;
                 v.push_back({ny,nx,1});
             }
@@ -86,6 +86,6 @@ int main() {
         if(k.age==0) continue;
         res++;
     }
-    
+
     cout<<res<<'\n';
 }

@@ -38,7 +38,7 @@ int main() {
                 }
 
                 for(int j=1;j<=col_size;j++){
-                    if(arr[i][j]==0) break;
+                    if(arr[i][j]==0) continue;
                     cnt[arr[i][j]]++;
                 }
 
@@ -56,7 +56,7 @@ int main() {
                     arr[i][idx++]=v[j].first;
                 }
                 for(int j=idx; j<=100;j++){
-                    arr[i][idx]=0;
+                    arr[i][j]=0;
                 }
          
                 tmp_size=max(idx-1,tmp_size);
@@ -74,7 +74,7 @@ int main() {
                 }
 
                 for(int j=1;j<=row_size;j++){
-                    if(arr[j][i]==0) break;
+                    if(arr[j][i]==0) continue;
                     cnt[arr[j][i]]++;
                 }
 
@@ -92,7 +92,7 @@ int main() {
                     arr[idx++][i]=v[j].first;
                 }
                 for(int j=idx; j<=100;j++){
-                    arr[idx][i]=0;
+                    arr[j][i]=0;
                 }
          
                 tmp_size=max(idx-1,tmp_size);
@@ -101,6 +101,13 @@ int main() {
             row_size=tmp_size;
         }
         time++;
+        // for(int i=1;i<=10;i++){
+        //     for(int j=1;j<=10;j++){
+        //         cout<<arr[i][j]<<' ';
+        //     }
+        //     cout<<'\n';
+        // }
+        // cout<<'\n';
     }
     
     // for(int i=1;i<=10;i++){

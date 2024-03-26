@@ -6,7 +6,7 @@ int n,m,k,res;
 
 struct Virus{
     int y,x,age;
-    bool is_dead=false;
+    bool is_dead;
 };
 
 bool compare(const Virus& a, const Virus& b){
@@ -33,7 +33,7 @@ int main() {
     for(int i=0;i<m;i++){
         int r,c,a;
         cin>>r>>c>>a;
-        v.push_back({r,c,a});
+        v.push_back({r,c,a,false});
     }
 
     while(k--){
@@ -59,20 +59,20 @@ int main() {
             
         }
 
-        // 죽은 바이러스 양분으로 변환
-        for(auto &i:d){
+        // 죽은 바이러스들 양분으로 변환
+        for(auto i:d){
             mmap[i.y][i.x] += i.age/2;
         }
 
         // 바이러스 번식
-        for(auto &l:v){
+        for(auto l:v){
             if(l.is_dead) continue;
             if(l.age%5 == 0){
                 for(int i=0;i<8;i++){
                     int ny=l.y+dy[i];
                     int nx=l.x+dx[i];
                     if(ny>n || ny<=0 || nx>n || nx<=0) continue;
-                    v.push_back({ny,nx,1});
+                    v.push_back({ny,nx,1,false});
                 }
             }
         }
@@ -85,7 +85,7 @@ int main() {
         }
     }
 
-    for(auto& k:v){
+    for(auto k:v){
         if(!k.is_dead) res++;
     }
 

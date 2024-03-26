@@ -103,11 +103,11 @@ int main() {
         time++;
     }
     
-    for(int i=1;i<=10;i++){
-        for(int j=1;j<=10;j++){
-            cout<<arr[i][j]<<' ';
-        }
-        cout<<'\n';
-    }
+    // for(int i=1;i<=10;i++){
+    //     for(int j=1;j<=10;j++){
+    //         cout<<arr[i][j]<<' ';
+    //     }
+    //     cout<<'\n';
+    // }
     cout<<res<<'\n';
 }

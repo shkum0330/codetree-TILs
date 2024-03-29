@@ -7,6 +7,7 @@ bool flag=false;
 int mmap[51][51];
 int dist[51][51];
 bool visited[51][51];
+bool tmp_visited[51][51];
 int dy[4]={-1,0,1,0};
 int dx[4]={0,-1,0,1};
 vector<pair<int,int>> hospital;
@@ -25,60 +26,69 @@ bool check(){
 void bfs(int y,int x){
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
-            visited[i][j]=false;
+            tmp_visited[i][j]=false;
         }
     }
     queue<pair<int,int>> q;
     q.push({y,x});
+    tmp_visited[y][x]=true;
     visited[y][x]=true;
     dist[y][x]=0;
     while(!q.empty()){
         int y=q.front().first;
         int x=q.front().second;
         q.pop();
+        // cout<<y<<' '<<x<<'\n';
         for(int i=0;i<4;i++){
             int ny=y+dy[i];
             int nx=x+dx[i];
 
             if(ny>=n || ny<0 || nx>=n || nx<0) continue;
             
-            if(!visited[ny][nx] && mmap[ny][nx]!=1){
+            if(!tmp_visited[ny][nx] && mmap[ny][nx]!=1 ){
                 // cout<<ny<<' '<<nx<<'\n';
                 if(dist[ny][nx]==0) dist[ny][nx]=dist[y][x]+1;
                 else dist[ny][nx]=min(dist[y][x]+1,dist[ny][nx]);
+     
                 q.push({ny,nx});
+                tmp_visited[ny][nx]=true;
                 visited[ny][nx]=true;
+   
             }
         }
     }
-
-    
-
 }
 void combi(int idx){
-
     if(v.size()==m){
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 dist[i][j]=0;
+                visited[i][j]=false;
             }
         }
         for(int i=0;i<m;i++){
             bfs(hospital[v[i]].first,hospital[v[i]].second);
         }
-
+       
         for(int i=0;i<hospital.size();i++){
-            dist[hospital[v[i]].first][hospital[v[i]].second]=0;
+            dist[hospital[i].first][hospital[i].second]=0;
         }
 
         // for(int i=0;i<n;i++){
         //     for(int j=0;j<n;j++){
         //         cout<<dist[i][j]<<' ';
         //     }
+            // cout<<'\n';
+        // }
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<n;j++){
+        //         cout<<visited[i][j]<<' ';
+        //     }
         //     cout<<'\n';
         // }
-        // cout<<'\n';
+
         if(check()){
+
             flag=true;
             int tmp=0;
             for(int i=0;i<n;i++){

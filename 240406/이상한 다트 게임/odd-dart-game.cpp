@@ -32,8 +32,8 @@ void dfs(int r, int c, bool init,int num){
     }
 }
 void calc(){
-    double sum=0;
-    double cnt=0;
+    int sum=0;
+    int cnt=0;
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
             if(plate[i][j]==0) continue;
@@ -42,7 +42,7 @@ void calc(){
         }
     }
 
-    double avg=sum/cnt;
+    int avg=sum/cnt;
 
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {

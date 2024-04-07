@@ -88,7 +88,8 @@ int main() {
 
                 int ty=p[loser].y+dy[p[loser].d];
                 int tx=p[loser].x+dx[p[loser].d];
-                if(ty>=n || ty<0 || tx>=n || tx<0){
+                while (true){
+                    if(ty<n && ty>=0 && tx<n && tx>=0 && mp[{ty,tx}] == -1) break;
                     p[loser].d=(p[loser].d+1)%4; // 90도 회전
                     ty=p[loser].y+dy[p[loser].d];
                     tx=p[loser].x+dx[p[loser].d];
@@ -123,6 +124,7 @@ int main() {
 
             }
         }
+
     }
 
     for (auto l:p) {

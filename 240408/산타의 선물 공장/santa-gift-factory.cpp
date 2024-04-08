@@ -67,7 +67,7 @@ int main() {
         }
         if(op==200){
             int w_max; cin>>w_max;
-            int res=0;
+            long long res=0;
             for (int i = 0; i < m; ++i) {
                 if(belt[i].broken) continue;
                 int head=belt[i].head;

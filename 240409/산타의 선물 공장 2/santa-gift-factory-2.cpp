@@ -28,7 +28,6 @@ int main() {
                 belt[belt_num].size++; // 벨트 사이즈 증가
                 present[num].belt_num=belt_num; // 물건에 벨트 번호 등록
                 if(belt[belt_num].size==1){ // 해당 벨트의 첫 물건일때
-
                     belt[belt_num].head=num;
                     belt[belt_num].tail=num;
                     num++;
@@ -40,14 +39,15 @@ int main() {
                 belt[belt_num].tail=num;
                 num++;
             }
-//            for (int i = 0; i < n; ++i) {
-//                cout<<belt[i+1].head<<' '<<belt[i+1].tail<<'\n';
-//            }
+
         }
         if(op==200){
             int m_src,m_dst; cin>>m_src>>m_dst;
 
             int src_head=belt[m_src].head;
+            int src_tail=belt[m_src].tail;
+            int dest_head=belt[m_dst].head;
+
             int tmp=src_head;
             while (tmp != 0){
                 present[tmp].belt_num=m_dst;
@@ -55,8 +55,7 @@ int main() {
                 belt[m_dst].size++;
             }
 
-            int src_tail=belt[m_src].tail;
-            int dest_head=belt[m_dst].head;
+
             present[dest_head].prev=src_tail;
             present[src_tail].next=dest_head;
             belt[m_dst].head=src_head;
@@ -70,7 +69,7 @@ int main() {
             int m_src,m_dst; cin>>m_src>>m_dst;
             int src=belt[m_src].head;
             int dst=belt[m_dst].head;
-            if(src!=0 && dst != 0){ // 둘다 있을때
+            if(src != 0 && dst != 0){ // 둘다 있을때
                 belt[m_src].head=dst;
                 belt[m_dst].head=src;
                 present[present[m_src].next].prev=dst;
@@ -79,7 +78,7 @@ int main() {
                 present[src]=present[dst];
                 present[dst]=tmp;
             }
-            else if(src!=0 && dst == 0){ // 출발지에만 있을때
+            else if(src != 0 && dst == 0){ // 출발지에만 있을때
                 belt[m_src].size--;
                 belt[m_dst].size++;
                 belt[m_src].head=present[src].next;
@@ -89,7 +88,6 @@ int main() {
                 present[src].belt_num=m_dst;
                 present[src].prev=0;
                 present[src].next=0;
-
 
             }
             else if(src==0 && dst != 0){ // 도착지에만 있을때
@@ -119,11 +117,13 @@ int main() {
             belt[m_src].size-= cnt;
             belt[m_dst].size+= cnt;
             int tmp=src_head;
+            int src_tail=-1;
             while (cnt--){ // 옮기는 부분 벨트번호 바꾸기
                 present[tmp].belt_num=m_dst;
+                if(cnt==0) src_tail=tmp;
                 tmp=present[tmp].next;
             }
-            int src_tail=present[tmp].prev;
+         
             belt[m_src].head=tmp;
             present[tmp].prev=0;
 
@@ -159,6 +159,6 @@ int main() {
             }
             cout<<a+2*b+3*c<<'\n';
         }
-    
+  
     }
 }

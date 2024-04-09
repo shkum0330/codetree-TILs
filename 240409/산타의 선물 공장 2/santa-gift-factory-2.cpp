@@ -49,16 +49,17 @@ int main() {
             int dest_head=belt[m_dst].head;
 
             int tmp=src_head;
+            if(belt[m_dst].size==0) belt[m_dst].tail=src_tail;
             while (tmp != 0){
                 present[tmp].belt_num=m_dst;
                 tmp=present[tmp].next;
                 belt[m_dst].size++;
             }
-
-
+            
             present[dest_head].prev=src_tail;
             present[src_tail].next=dest_head;
             belt[m_dst].head=src_head;
+            
             belt[m_src].head=0;
             belt[m_src].tail=0;
             belt[m_src].size=0;
@@ -114,6 +115,7 @@ int main() {
             int dst_head=belt[m_dst].head;
             int cnt=belt[m_src].size/2;
 
+            int size=cnt;
             belt[m_src].size-= cnt;
             belt[m_dst].size+= cnt;
             int tmp=src_head;
@@ -123,7 +125,7 @@ int main() {
                 if(cnt==0) src_tail=tmp;
                 tmp=present[tmp].next;
             }
-         
+
             belt[m_src].head=tmp;
             present[tmp].prev=0;
 
@@ -132,6 +134,10 @@ int main() {
             present[src_tail].next=dst_head;
 
             belt[m_dst].head=src_head;
+
+            if(belt[m_dst].size==size) {
+                belt[m_dst].tail=src_tail;
+            }
             cout<<belt[m_dst].size<<'\n';
         }
         if(op==500){
@@ -159,6 +165,6 @@ int main() {
             }
             cout<<a+2*b+3*c<<'\n';
         }
-  
+
     }
 }

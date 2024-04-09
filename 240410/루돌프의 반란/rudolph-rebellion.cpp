@@ -27,6 +27,7 @@ int get_dist(pair<int,int> a, pair<int,int> b){
     return pow(a.first-b.first,2)+pow(a.second-b.second,2);
 }
 
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
@@ -87,9 +88,10 @@ int main() {
 
         }else{ // 충돌
             int santa_num=mmap[ny][nx];
+
             s[santa_num].point+=c;
             s[santa_num].faint=true;
-    
+            s[santa_num].time=0;
             int ty=ny + c*ry[r_move_idx];
             int tx=nx + c*rx[r_move_idx];
             s[santa_num].y=ty;
@@ -159,10 +161,11 @@ int main() {
                 int santa_num=i;
                 s[i].point+=d;
                 s[i].faint= true;
+                s[i].time=0;
                 s_move_idx=(s_move_idx+2)%4;
                 int ty=ny+d*sy[s_move_idx];
                 int tx=nx+d*sx[s_move_idx];
-      
+
                 if(ty>n || ty<=0 || tx>n || tx<=0){
                     s[i].out=true;
                     continue;
@@ -217,13 +220,12 @@ int main() {
         //     }
         //     cout<<'\n';
         // }
-        // cout<<'\n';
         // for(int i = 1; i <= p; ++i){
-        //     if(!s[i].out) cout<<s[i].y<<' '<<s[i].x<<'\n';
+        //     if(!s[i].out) cout<<i<<"번 산타: "<<s[i].y<<' '<<s[i].x<<' '<<s[i].faint<<'\n';
         // }
-        
+        // cout<<'\n';
     }
-   for (int i = 1; i <= p; ++i) {
+    for (int i = 1; i <= p; ++i) {
         cout<<s[i].point<<' ';
     }
     cout<<'\n';

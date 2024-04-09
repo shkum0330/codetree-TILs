@@ -7,7 +7,7 @@ struct Belt{
     int head,tail,size;
 };
 struct Present{
-    int prev,next,belt_num;
+    int prev,next;
 };
 unordered_map<int,Belt> belt;
 unordered_map<int,Present> present;
@@ -26,7 +26,7 @@ int main() {
             for(int i=0;i<m;i++){ // n개의 벨트와 m개의 물건
                 int belt_num; cin>>belt_num;
                 belt[belt_num].size++; // 벨트 사이즈 증가
-                present[num].belt_num=belt_num; // 물건에 벨트 번호 등록
+      
                 if(belt[belt_num].size==1){ // 해당 벨트의 첫 물건일때
                     belt[belt_num].head=num;
                     belt[belt_num].tail=num;
@@ -43,23 +43,22 @@ int main() {
         }
         if(op==200){
             int m_src,m_dst; cin>>m_src>>m_dst;
-
+            if(belt[m_src].size==0){
+                cout<<belt[m_dst].size<<'\n';
+                continue;
+            }
             int src_head=belt[m_src].head;
             int src_tail=belt[m_src].tail;
             int dest_head=belt[m_dst].head;
 
-            int tmp=src_head;
-            if(belt[m_dst].size==0) belt[m_dst].tail=src_tail;
-            while (tmp != 0){
-                present[tmp].belt_num=m_dst;
-                tmp=present[tmp].next;
-                belt[m_dst].size++;
+            belt[m_dst].head=src_head;
+            if(belt[m_dst].size==0) {
+                belt[m_dst].tail=src_tail;
+            }else{
+                present[dest_head].prev=src_tail;
             }
 
-            present[dest_head].prev=src_tail;
-            present[src_tail].next=dest_head;
-            belt[m_dst].head=src_head;
-
+            belt[m_dst].size+=belt[m_src].size;
             belt[m_src].head=0;
             belt[m_src].tail=0;
             belt[m_src].size=0;
@@ -94,7 +93,7 @@ int main() {
                 present[belt[m_src].head].prev=0;
                 belt[m_dst].head=src;
                 belt[m_dst].tail=src;
-                present[src].belt_num=m_dst;
+
                 present[src].prev=0;
                 present[src].next=0;
 
@@ -106,7 +105,7 @@ int main() {
                 present[belt[m_dst].head].prev=0;
                 belt[m_src].head=dst;
                 belt[m_src].tail=dst;
-                present[dst].belt_num=m_src;
+
                 present[dst].prev=0;
                 present[dst].next=0;
 
@@ -129,7 +128,7 @@ int main() {
             int tmp=src_head;
             int src_tail=-1;
             while (cnt--){ // 옮기는 부분 벨트번호 바꾸기
-                present[tmp].belt_num=m_dst;
+
                 if(cnt==0) src_tail=tmp;
                 tmp=present[tmp].next;
             }

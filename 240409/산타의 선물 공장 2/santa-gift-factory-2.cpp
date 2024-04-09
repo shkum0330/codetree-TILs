@@ -55,11 +55,11 @@ int main() {
                 tmp=present[tmp].next;
                 belt[m_dst].size++;
             }
-            
+
             present[dest_head].prev=src_tail;
             present[src_tail].next=dest_head;
             belt[m_dst].head=src_head;
-            
+
             belt[m_src].head=0;
             belt[m_src].tail=0;
             belt[m_src].size=0;
@@ -78,6 +78,14 @@ int main() {
                 Present tmp=present[src];
                 present[src]=present[dst];
                 present[dst]=tmp;
+                if(belt[m_src].size==1){
+                    belt[m_src].head=dst;
+                    belt[m_src].tail=dst;
+                }
+                if(belt[m_dst].size==1){
+                    belt[m_dst].head=src;
+                    belt[m_dst].tail=src;
+                }
             }
             else if(src != 0 && dst == 0){ // 출발지에만 있을때
                 belt[m_src].size--;
@@ -165,6 +173,8 @@ int main() {
             }
             cout<<a+2*b+3*c<<'\n';
         }
-
+        // for (int i = 1; i <= n; ++i) {
+        //     cout<<belt[i].head<<' '<<belt[i].tail<<' '<<belt[i].size<<'\n';
+        // }
     }
 }

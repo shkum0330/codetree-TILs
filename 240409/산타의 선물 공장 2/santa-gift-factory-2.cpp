@@ -73,6 +73,8 @@ int main() {
             if(src!=0 && dst != 0){ // 둘다 있을때
                 belt[m_src].head=dst;
                 belt[m_dst].head=src;
+                present[present[m_src].next].prev=dst;
+                present[present[m_dst].next].prev=src;
                 Present tmp=present[src];
                 present[src]=present[dst];
                 present[dst]=tmp;
@@ -157,8 +159,6 @@ int main() {
             }
             cout<<a+2*b+3*c<<'\n';
         }
-//        for (int i = 1; i <= n; ++i) {
-//            cout<<belt[i].head<<' '<<belt[i].tail<<' '<<belt[i].size<<'\n';
-//        }
+    
     }
 }

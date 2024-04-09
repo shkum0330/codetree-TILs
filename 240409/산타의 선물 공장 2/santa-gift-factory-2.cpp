@@ -26,7 +26,7 @@ int main() {
             for(int i=0;i<m;i++){ // n개의 벨트와 m개의 물건
                 int belt_num; cin>>belt_num;
                 belt[belt_num].size++; // 벨트 사이즈 증가
-      
+
                 if(belt[belt_num].size==1){ // 해당 벨트의 첫 물건일때
                     belt[belt_num].head=num;
                     belt[belt_num].tail=num;
@@ -56,6 +56,7 @@ int main() {
                 belt[m_dst].tail=src_tail;
             }else{
                 present[dest_head].prev=src_tail;
+                present[src_tail].next=dest_head;
             }
 
             belt[m_dst].size+=belt[m_src].size;
@@ -67,51 +68,73 @@ int main() {
         }
         if(op==300){
             int m_src,m_dst; cin>>m_src>>m_dst;
-            int src=belt[m_src].head;
-            int dst=belt[m_dst].head;
-            if(src != 0 && dst != 0){ // 둘다 있을때
+            int src=belt[m_src].head; // 1
+            int dst=belt[m_dst].head; // 0
+
+            if(src!=0 && dst != 0){ // 둘다 있을때
                 belt[m_src].head=dst;
                 belt[m_dst].head=src;
-                present[present[m_src].next].prev=dst;
-                present[present[m_dst].next].prev=src;
-                Present tmp=present[src];
-                present[src]=present[dst];
-                present[dst]=tmp;
                 if(belt[m_src].size==1){
-                    belt[m_src].head=dst;
                     belt[m_src].tail=dst;
+                }else{
+                    int next=present[src].next;
+                    present[next].prev=dst;
+                    present[dst].next=next;
                 }
                 if(belt[m_dst].size==1){
-                    belt[m_dst].head=src;
                     belt[m_dst].tail=src;
+                }else{
+                    int next=present[dst].next;
+                    present[next].prev=src;
+                    present[src].next=next;
                 }
+
+                swap(present[src],present[dst]);
+
             }
-            else if(src != 0 && dst == 0){ // 출발지에만 있을때
-                belt[m_src].size--;
+            else if(src!=0 && dst == 0){ // 출발지에만 있을때
                 belt[m_dst].size++;
-                belt[m_src].head=present[src].next;
-                present[belt[m_src].head].prev=0;
+
                 belt[m_dst].head=src;
                 belt[m_dst].tail=src;
-
-                present[src].prev=0;
-                present[src].next=0;
+                if(belt[m_src].size==1){
+                    belt[m_src].size--;
+                    belt[m_src].head=0;
+                    belt[m_src].tail=0;
+                    present[src].prev=0;
+                    present[src].next=0;
+                    belt[m_dst].tail=src;
+                }else{
+                    belt[m_src].size--;
+                    belt[m_src].head=present[src].next;
+                    present[src].prev=0;
+                    present[src].next=0;
+                }
 
             }
             else if(src==0 && dst != 0){ // 도착지에만 있을때
                 belt[m_src].size++;
-                belt[m_dst].size--;
-                belt[m_dst].head=present[dst].next;
-                present[belt[m_dst].head].prev=0;
+
                 belt[m_src].head=dst;
                 belt[m_src].tail=dst;
+                if(belt[m_dst].size==1){
+                    belt[m_dst].size--;
+                    belt[m_dst].head=0;
+                    belt[m_dst].tail=0;
+                    present[dst].prev=0;
+                    present[dst].next=0;
 
-                present[dst].prev=0;
-                present[dst].next=0;
-
+                }else{
+                    belt[m_dst].size--;
+                    belt[m_dst].head=present[dst].next;
+                    present[dst].prev=0;
+                    present[dst].next=0;
+                }
             }
+
             cout<<belt[m_dst].size<<'\n';
         }
+
         if(op==400){
             int m_src,m_dst; cin>>m_src>>m_dst;
             if(belt[m_src].size<=1){
@@ -172,8 +195,5 @@ int main() {
             }
             cout<<a+2*b+3*c<<'\n';
         }
-        // for (int i = 1; i <= n; ++i) {
-        //     cout<<belt[i].head<<' '<<belt[i].tail<<' '<<belt[i].size<<'\n';
-        // }
     }
 }

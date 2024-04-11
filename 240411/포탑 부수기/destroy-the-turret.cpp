@@ -133,7 +133,7 @@ int main() {
         }
 //        for (int i = 1; i <= n; ++i) {
 //            for (int j = 1; j <= m; ++j) {
-//                cout<<dist[i][j]<<' ';
+//                cout<<dir[i][j]<<' ';
 //            }
 //            cout<<'\n';
 //        }
@@ -141,6 +141,7 @@ int main() {
             // 경로 추적
 //            cout<<123<<'\n';
             int d=dist[d_y][d_x];
+
             int y=d_y; int x=d_x;
 //            cout<<y<<' '<<x<<'\n';
 
@@ -149,6 +150,7 @@ int main() {
                 int dr=(dir[y][x]+2)%4;
                 int ny=y+dy[dr];
                 int nx=x+dx[dr];
+//                cout<<ny<<' '<<nx<<' '<<dr<<'\n';
                 if(ny==n+1) ny=1;
                 if(nx==m+1) nx=1;
                 if(ny==0) ny=n;
@@ -157,18 +159,21 @@ int main() {
                 if(!visited[ny][nx] || mmap[ny][nx].power==0) continue;
                 if(dist[ny][nx]==d-1 && !attacked[ny][nx]){
                     d--;
-                    if(ny==a_y && nx==a_x) break;
+                    if(ny==a_y && nx==a_x) {
+                        break;
+                    }
 //                    cout<<ny<<' '<<nx<<' '<<d<<'\n';
                     mmap[ny][nx].power -= mmap[a_y][a_x].power/2;
                     attacked[ny][nx]=true;
                     y=ny; x=nx;
-                    break;
+
                 }
 
             }
             mmap[d_y][d_x].power -= mmap[a_y][a_x].power;
         }
         else {
+//            cout<<123<<'\n';
 //            cout<<mmap[a_y][a_x].power<<'\n';
             // 2-2. 포탄 공격
             for (int i = 0; i < 8; ++i) {

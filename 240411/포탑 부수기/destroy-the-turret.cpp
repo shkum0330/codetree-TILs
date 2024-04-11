@@ -26,7 +26,6 @@ int main() {
 
     for (int t = 1; t <= k; ++t) {
         int cnt=0;
-        res=0;
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= m; ++j) {
                 if(mmap[i][j].power>0) cnt++;
@@ -219,19 +218,23 @@ int main() {
             for (int j = 1; j <= m; ++j) {
 //                cout<<mmap[i][j].power<<' ';
                 if(mmap[i][j].power==0) continue;
-                res=max(res,mmap[i][j].power);
             }
 //            cout<<'\n';
         }
-//        cout<<'\n';
-//        for (int i = 1; i <= n; ++i) {
-//            for (int j = 1; j <= m; ++j) {
-//                cout<<mmap[i][j].power<<' ';
-//            }
-//            cout<<'\n';
-//        }
-//        cout<<'\n';
+        // cout<<'\n';
 
+        // for (int i = 1; i <= n; ++i) {
+        //     for (int j = 1; j <= m; ++j) {
+        //         cout<<mmap[i][j].power<<' ';
+        //     }
+        //     cout<<'\n';
+        // }
+        // cout<<'\n';
+    }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            res=max(res,mmap[i][j].power);
+        }
     }
     cout<<res<<'\n';
 }

@@ -31,7 +31,7 @@ int main() {
                 if(mmap[i][j].power>0) cnt++;
             }
         }
-        if(cnt<2) break;
+        if(cnt<=1) break;
         // 1. 공격자 선정
         int a_y=-1; int a_x=-1; int power=1000000007; int time=-1;
         for (int i = 1; i <= n; ++i) {
@@ -58,7 +58,8 @@ int main() {
                 }
             }
         }
-        mmap[a_y][a_x].time=k; // 공격 시간 설정
+//        cout<<"----"<<'\n';
+        mmap[a_y][a_x].time=t; // 공격 시간 설정
         mmap[a_y][a_x].power += n + m; // 공격력 설정
 //        cout << a_y << ' ' << a_x << '\n';
 
@@ -214,27 +215,21 @@ int main() {
             }
         }
 
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= m; ++j) {
-//                cout<<mmap[i][j].power<<' ';
-                if(mmap[i][j].power==0) continue;
-            }
-//            cout<<'\n';
-        }
-        // cout<<'\n';
 
-        // for (int i = 1; i <= n; ++i) {
-        //     for (int j = 1; j <= m; ++j) {
-        //         cout<<mmap[i][j].power<<' ';
-        //     }
-        //     cout<<'\n';
-        // }
-        // cout<<'\n';
+//        for (int i = 1; i <= n; ++i) {
+//            for (int j = 1; j <= m; ++j) {
+//                cout<<mmap[i][j].power<<' ';
+//            }
+//            cout<<'\n';
+//        }
+//        cout<<'\n';
+
     }
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
             res=max(res,mmap[i][j].power);
         }
     }
+//    cout<<mmap[1][1].time<<' '<<mmap[2][1].time<<'\n';
     cout<<res<<'\n';
 }

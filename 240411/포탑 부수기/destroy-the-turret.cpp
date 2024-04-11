@@ -25,7 +25,7 @@ int main() {
 
     for (int t = 1; t <= k; ++t) {
         // 1. 공격자 선정
-        int a_y=0; int a_x=0; int power=1000000007; int time=1001;
+        int a_y=-1; int a_x=-1; int power=1000000007; int time=-1;
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= m; ++j) {
                 if(mmap[i][j].power==0) continue;
@@ -55,7 +55,7 @@ int main() {
 //        cout << a_y << ' ' << a_x << '\n';
 
         // 2. 피해자 선정
-        int d_y=0; int d_x=0; power=0; time=0;
+        int d_y=-1; int d_x=-1; power=0; time=-1;
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= m; ++j) {
                 if(mmap[i][j].power==0 || (i==a_y && j==a_x)) continue;
@@ -128,7 +128,6 @@ int main() {
         if(flag){
             // 경로 추적
             int d=dist[d_y][d_x];
-            vector<pii> route;
             int y=d_y; int x=d_x;
 //            cout<<y<<' '<<x<<'\n';
 
@@ -143,7 +142,7 @@ int main() {
                     if(nx==0) nx=m;
 //                    if(ny==a_y && nx==a_x) break;
                     if(!visited[ny][nx] || mmap[ny][nx].power==0) continue;
-                    if(dist[ny][nx]==d-1){
+                    if(dist[ny][nx]==d-1 && !attacked[ny][nx]){
                         d--;
                         if(ny==a_y && nx==a_x) break;
 //                        cout<<ny<<' '<<nx<<' '<<d<<'\n';

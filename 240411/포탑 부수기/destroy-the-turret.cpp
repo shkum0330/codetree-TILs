@@ -12,6 +12,7 @@ int dx[8]={1,0,-1,0,1,1,-1,-1};
 bool visited[11][11];
 bool attacked[11][11];
 int dist[11][11];
+int dir[11][11];
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -103,9 +104,10 @@ int main() {
         q.push({a_y,a_x});
         visited[a_y][a_x]=true;
         while (!q.empty()){
-//            cout<<123<<'\n';
+
             int y=q.front().first;
             int x=q.front().second;
+//            cout<<y<<' '<<x<<'\n';
             if(y==d_y && x==d_x){
                 flag=true;
                 break;
@@ -119,9 +121,11 @@ int main() {
                 if(ny==0) ny=n;
                 if(nx==0) nx=m;
                 if(!visited[ny][nx] && mmap[ny][nx].power>0){
+                    if(dist[ny][nx] != 0 && dist[ny][nx]<=dist[y][x]+1) continue;
                     visited[ny][nx]=true;
                     q.push({ny,nx});
                     dist[ny][nx]=dist[y][x]+1;
+                    dir[ny][nx]=i;
                 }
 
             }
@@ -134,31 +138,32 @@ int main() {
 //        }
         if(flag){
             // 경로 추적
+//            cout<<123<<'\n';
             int d=dist[d_y][d_x];
             int y=d_y; int x=d_x;
 //            cout<<y<<' '<<x<<'\n';
 
-            while (d != 0){
+            while (d > 0){
 //                cout<<d<<'\n';
-                for (int i = 3; i >= 0; i--) {
-                    int ny=y+dy[i];
-                    int nx=x+dx[i];
-                    if(ny==n+1) ny=1;
-                    if(nx==m+1) nx=1;
-                    if(ny==0) ny=n;
-                    if(nx==0) nx=m;
+                int dr=(dir[y][x]+2)%4;
+                int ny=y+dy[dr];
+                int nx=x+dx[dr];
+                if(ny==n+1) ny=1;
+                if(nx==m+1) nx=1;
+                if(ny==0) ny=n;
+                if(nx==0) nx=m;
 //                    if(ny==a_y && nx==a_x) break;
-                    if(!visited[ny][nx] || mmap[ny][nx].power==0) continue;
-                    if(dist[ny][nx]==d-1 && !attacked[ny][nx]){
-                        d--;
-                        if(ny==a_y && nx==a_x) break;
-//                        cout<<ny<<' '<<nx<<' '<<d<<'\n';
-                        mmap[ny][nx].power -= mmap[a_y][a_x].power/2;
-                        attacked[ny][nx]=true;
-                        y=ny; x=nx;
-                        break;
-                    }
+                if(!visited[ny][nx] || mmap[ny][nx].power==0) continue;
+                if(dist[ny][nx]==d-1 && !attacked[ny][nx]){
+                    d--;
+                    if(ny==a_y && nx==a_x) break;
+//                    cout<<ny<<' '<<nx<<' '<<d<<'\n';
+                    mmap[ny][nx].power -= mmap[a_y][a_x].power/2;
+                    attacked[ny][nx]=true;
+                    y=ny; x=nx;
+                    break;
                 }
+
             }
             mmap[d_y][d_x].power -= mmap[a_y][a_x].power;
         }
@@ -205,6 +210,7 @@ int main() {
             }
 //            cout<<'\n';
         }
+//        cout<<'\n';
     }
     cout<<res<<'\n';
 }

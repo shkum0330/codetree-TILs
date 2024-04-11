@@ -26,6 +26,7 @@ int main() {
 
     for (int t = 1; t <= k; ++t) {
         int cnt=0;
+        res=0;
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= m; ++j) {
                 if(mmap[i][j].power>0) cnt++;
@@ -191,6 +192,13 @@ int main() {
                 mmap[i][j].power=max(mmap[i][j].power,0);
             }
         }
+//        for (int i = 1; i <= n; ++i) {
+//            for (int j = 1; j <= m; ++j) {
+//                cout<<mmap[i][j].power<<' ';
+//            }
+//            cout<<'\n';
+//        }
+//        cout<<'\n';
 
         // 4. 포탑 정비
         for (int i = 1; i <= n; ++i) {
@@ -211,6 +219,14 @@ int main() {
 //            cout<<'\n';
         }
 //        cout<<'\n';
+//        for (int i = 1; i <= n; ++i) {
+//            for (int j = 1; j <= m; ++j) {
+//                cout<<mmap[i][j].power<<' ';
+//            }
+//            cout<<'\n';
+//        }
+//        cout<<'\n';
+
     }
     cout<<res<<'\n';
 }

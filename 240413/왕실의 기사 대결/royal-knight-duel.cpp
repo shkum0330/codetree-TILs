@@ -18,7 +18,6 @@ int dy[4] = { -1,0,1,0 };
 int dx[4] = { 0,1,0,-1 };
 
 void move(int id, int d) { // 이동이 가능한지 확인
-	//cout << id << '\n';
 	visited[id] = true;
 	int y = knight[id].y;
 	int x = knight[id].x;
@@ -62,13 +61,7 @@ int main() {
 			}
 		}
 	}
-	//for (int i = 1; i <= l; i++) {
-	//	for (int j = 1; j <= l; j++)
-	//	{
-	//		cout << knight_space[i][j] << ' ';
-	//	}
-	//	cout << '\n';
-	//}
+
 	while (q--)
 	{
 		int id, d; cin >> id >> d;
@@ -79,10 +72,6 @@ int main() {
 		}
 		move(id, d);
 
-		//cout << can_move << '\n';
-	/*	for (int i = 1; i <= l; i++) {
-			cout << knight[i].y << ' ' << knight[i].x << '\n';
-		}*/
 		if (can_move) {
 			if (d == 0) { // 위
 				for (int i = 1; i <= l; i++) { // x축 이동
@@ -141,7 +130,6 @@ int main() {
 					}
 					knight[idx].hp -= damage;
 					knight[idx].damage += damage;
-					//cout << idx << ' ' << knight[idx].damage << '\n';
 					if (knight[idx].hp <= 0) {	
 						knight[idx].dead = true;
 						for (int i = y; i < y + h; i++) {
@@ -153,25 +141,7 @@ int main() {
 				}
 			}
 		}
-		//for (int i = 1; i <= n; i++) {
-		//	cout << knight[i].y << ' ' << knight[i].x << '\n';
-		//}
-		//for (int i = 1; i <= l; i++) {
-		//	for (int j = 1; j <= l; j++) {
-		//		cout << knight_space[i][j] << ' ';
-		//	}
-		//	cout << '\n';
-		//}
-		
-		//else { // 벽 때문에 이동이 불가하면 원래 판으로 복구
-		//	for (int i = 1; i <= l; i++) {
-		//		for (int j = 1; j <= l; j++) {
-		//			knight_space[i][j] = copy_space[i][j];
-		//		}
-		//	}
-		//}
-		
-		
+	
 	}
 	for (int i = 1; i <= n; i++) {
 		if (!knight[i].dead) res+= knight[i].damage;

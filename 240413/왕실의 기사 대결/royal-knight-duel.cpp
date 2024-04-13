@@ -88,7 +88,7 @@ int main() {
 				for (int i = 1; i <= l; i++) { // x축 이동
 					for (int j = 1; j < l; j++) { // y축 이동
 						int next = knight_space[j+1][i];
-						if (next == 0 || !visited[next]) continue;
+						if (next == 0 || !visited[next] || knight[next].dead) continue;
 						knight_space[j][i] = next;
 						knight_space[j+1][i] = 0;
 					}
@@ -96,9 +96,9 @@ int main() {
 			}
 			if (d == 1) { // 오른쪽
 				for (int i = 1; i <= l; i++) { // y축 이동
-					for (int j = l; j > 0; j--) { // x축 이동
+					for (int j = l; j > 1; j--) { // x축 이동
 						int next = knight_space[i][j-1];
-						if (next == 0 || !visited[next]) continue;
+						if (next == 0 || !visited[next] || knight[next].dead) continue;
 						knight_space[i][j] = next;
 						knight_space[i][j-1] = 0;
 					}
@@ -106,9 +106,9 @@ int main() {
 			}
 			if (d == 2) { // 아래
 				for (int i = 1; i <= l; i++) { // x축 이동
-					for (int j = l; j > 0; j--) { // y축 이동
+					for (int j = l; j > 1; j--) { // y축 이동
 						int next = knight_space[j - 1][i];
-						if (next == 0 || !visited[next]) continue;
+						if (next == 0 || !visited[next] || knight[next].dead) continue;
 						knight_space[j][i] = next;
 						knight_space[j-1][i] = 0;
 					}
@@ -118,14 +118,14 @@ int main() {
 				for (int i = 1; i <= l; i++) { // y축 이동
 					for (int j = 1; j < l; j++) { // x축 이동
 						int next = knight_space[i][j + 1];
-						if (next == 0 || !visited[next]) continue;
+						if (next == 0 || !visited[next] || knight[next].dead ) continue;
 						knight_space[i][j] = next;
 						knight_space[i][j+1] = 0;
 					}
 				}
 			}
 			for (int idx = 1; idx <= n; idx++) {
-				if (visited[idx]) {
+				if (visited[idx] && !knight[idx].dead) {
 					knight[idx].y += dy[d];
 					knight[idx].x += dx[d];
 					if (idx == id) continue; // 공격자는 옮기기만
@@ -142,8 +142,7 @@ int main() {
 					knight[idx].hp -= damage;
 					knight[idx].damage += damage;
 					//cout << idx << ' ' << knight[idx].damage << '\n';
-					if (knight[idx].hp <= 0) {
-				
+					if (knight[idx].hp <= 0) {	
 						knight[idx].dead = true;
 						for (int i = y; i < y + h; i++) {
 							for (int j = x; j < x + w; j++) {
@@ -168,6 +167,7 @@ int main() {
 		//		}
 		//	}
 		//}
+		
 		
 	}
 	for (int i = 1; i <= l; i++) {

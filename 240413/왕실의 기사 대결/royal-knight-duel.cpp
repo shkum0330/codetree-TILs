@@ -37,7 +37,7 @@ void move(int id, int d) { // 이동이 가능한지 확인
 			
 			int next = knight_space[ny][nx];
 			if (knight[next].dead) continue;
-			if (next != 0) {
+			if (next != 0 && !visited[next]) {
 				move(next, d);
 			}
 		}
@@ -153,6 +153,9 @@ int main() {
 				}
 			}
 		}
+		//for (int i = 1; i <= n; i++) {
+		//	cout << knight[i].y << ' ' << knight[i].x << '\n';
+		//}
 		//for (int i = 1; i <= l; i++) {
 		//	for (int j = 1; j <= l; j++) {
 		//		cout << knight_space[i][j] << ' ';
@@ -170,7 +173,7 @@ int main() {
 		
 		
 	}
-	for (int i = 1; i <= l; i++) {
+	for (int i = 1; i <= n; i++) {
 		if (!knight[i].dead) res+= knight[i].damage;
 	}
 	cout << res << '\n';
